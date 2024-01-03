@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xml.student1">
+<select id ="insert" resultType="student">
+ insert into student(studno,
+	 name, grade, id, jumin, deptno1) values
+	 (#{studno},#{name},#{grade},#{id},#{jumin},#{major1})
+</select>
+
+<select id ="select" resultType="student">
+ select * from student
+</select>
+
+<update id="update" parameterType="student">
+update student set
+grade=#{grade}, weight=#{weight}, height=#{height},
+profno=#{profno}
+where studno =#{studno}
+</update>
+
+<!-- table column 명과 Bean에 property상이 할때 -->
+<resultMap type="student" id="studentRMap">
+<result column="deptno1" jdbcType="BIGINT" property="major1"/>
+<result column="deptno2" jdbcType="BIGINT" property="major2"/>
+</resultMap>
+
+<select id ="selectRMap" resultMap="studentRMap">
+ select * from student
+</select>
+
+<delete id="delete" parameterType="int">
+    delete from student where studno = #{value}
+</delete>
+
+</mapper>
